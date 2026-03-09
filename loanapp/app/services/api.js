@@ -1,7 +1,13 @@
 import axios from "axios";
 
+const apiBaseURLRaw =
+  process.env.EXPO_PUBLIC_API_BASE_URL?.trim() || "/api";
+const apiBaseURL = apiBaseURLRaw.endsWith("/")
+  ? apiBaseURLRaw
+  : `${apiBaseURLRaw}/`;
+
 const API = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/"
+  baseURL: apiBaseURL
 });
 
 export const testApi = () => API.get("test/");

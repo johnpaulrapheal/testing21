@@ -1,0 +1,15 @@
+[Unit]
+Description=LoanApp Django Backend (Gunicorn)
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=__APP_ROOT__/rest_api/loan_app
+EnvironmentFile=__APP_ROOT__/rest_api/loan_app/.env
+ExecStart=__APP_ROOT__/rest_api/loan_app/.venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 loan_app.wsgi:application
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

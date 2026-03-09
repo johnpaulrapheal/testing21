@@ -9,6 +9,8 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
+    customer = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Payment
         fields = '__all__'

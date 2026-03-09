@@ -19,8 +19,13 @@ def get_customers(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def make_payment(request):
+@api_view(['GET', 'POST'])
+def payments(request):
+    if request.method == 'GET':
+        all_payments = Payment.objects.all().order_by('-payment_date')
+        serializer = PaymentSerializer(all_payments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     account_number = request.data.get("account_number")
     if not account_number:
         return Response({"error": "Account number is required."}, status=status.HTTP_400_BAD_REQUEST)
